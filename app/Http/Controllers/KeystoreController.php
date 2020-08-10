@@ -55,7 +55,7 @@ class KeystoreController extends Controller
     public function show($id)
     {
         $userId = Auth::guard('api')->user()->user_id;
-        $value = Shop::where('keystore_id', $id)->where('user_id', $userId)->first();
+        $value = Keystore::where('keystore_id', $id)->where('user_id', $userId)->first();
         if ($value != null) {
             $message = Config::get('response_messages.KEY_LISTED');
             return ResponseController::Response200(null, $value);
