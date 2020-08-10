@@ -22,3 +22,9 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', ['as' => 'login', 'uses' => 'AuthController@login']);
     Route::post('/register', 'AuthController@register');
 });
+
+Route::group([
+    'middleware' => 'auth:api'
+], function () {
+    Route::apiResource('keystore', 'KeystoreController');
+});
