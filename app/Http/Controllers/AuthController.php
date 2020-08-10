@@ -43,4 +43,26 @@ class AuthController extends Controller
             return ErrorsController::ErrorValidationMessage($validator);
         }
     }
+
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|string'
+        ]);
+        if (!$validator->fails()) {
+            $input = $request->all();
+            $input['password'] = bcrypt($input['password']);
+            $user = User::create($input);
+            $token = $user->createToken("APP_TOKEN")->accessToken;
+            return response()->json([
+                'status' => Config::get('response_messages.RESPONSE.SUCCESS'),
+                'message' => Config::get('response_messages.REGISTERED_SUCCESS'),
+                'access_token' => $token
+            ], 200);
+        } else {
+            return ErrorsController::ErrorValidationMessage($validator);
+        };
+    }
 };
