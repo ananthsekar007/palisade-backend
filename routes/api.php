@@ -33,4 +33,5 @@ Route::group([
     'middleware' => 'auth:api'
 ], function () {
     Route::apiResource('tasks', 'TasksController');
+    Route::get('/archievedtasks', 'TasksController@getArchieved');
 });

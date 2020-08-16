@@ -115,4 +115,12 @@ class TasksController extends Controller
             return ResponseController::Error422($message);
         }
     }
+
+    public function getArchieved()
+    {
+        $userId = Auth::guard('api')->user()->user_id;
+        $tasks = Tasks::where(['user_id' =>  $userId, 'isCompleted' => 0, 'isArchieved' => 1])->get();
+        $message = Config::get('response_messages.TASK_LISTED');
+        return ResponseController::Response200($message, $tasks);
+    }
 }
