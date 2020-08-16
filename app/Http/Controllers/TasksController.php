@@ -31,7 +31,20 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            "title" => "required|string",
+            "descripition" => "required|string",
+        ]);
+        if (!$validator->fails()) {
+            $tasks = $request->all();
+            $tasks['user_id'] =  Auth::guard('api')->user()->user_id;
+            Tasks::create($tasks);
+            $message = Config::get('response_messages.TASK_CREATED');
+            return  ResponseController::Response200($message);
+        } else {
+            return ErrorsController::ErrorValidationMessage($validator);
+        };
     }
 
     /**
