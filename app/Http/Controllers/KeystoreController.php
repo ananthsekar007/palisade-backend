@@ -105,10 +105,9 @@ class KeystoreController extends Controller
     public function destroy($id)
     {
         $userId = Auth::guard('api')->user()->user_id;
-        $value = Keystore::where(['keystore_id' => $id, 'seller_id' => $userId])->first();
+        $value = Keystore::where(['keystore_id' => $id, 'user_id' => $userId])->first();
         if ($value != null) {
-            $deleteValue = Keystore::where('keystore_id', $id)->get();
-            $deleteValue->delete();
+            $value->delete();
             $message = Config::get('response_messages.KEY_DELETED');
             return ResponseController::Response200($message);
         } else {
