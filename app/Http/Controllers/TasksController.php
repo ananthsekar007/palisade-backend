@@ -19,7 +19,7 @@ class TasksController extends Controller
     {
         $userId = Auth::guard('api')->user()->user_id;
         $tasks = Tasks::where('user_id', $userId)->get();
-        $message= Config::get('response_messages.TASK_LISTED');
+        $message = Config::get('response_messages.TASK_LISTED');
         return ResponseController::Response200($message, $tasks);
     }
 
@@ -62,7 +62,25 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), []);
+        if (!$validator->fails()) {
+            $userId = Auth::guard('api')->user()->user_id;
+            $tasks = Tasks::where(['task_id' => $id, 'user_id' => $userId])->first();
+            if ($tasks != null) {
+                $tasks->title = empty($request->title) ? $tasks->title : $request->title;
+                $tasks->description = empty($request->description) ? $tasks->description : $request->description;
+                $tasks->isCompleted = empty($request->isCompleted) ? $tasks->isCompleted : $request->isCompleted;
+                $tasks->isArchieved =  empty($request->isArchieved)  ? $tasks->isArchieved : $request->isArchieved;
+                $tasks->save();
+                $message = Config::get('response_messages.TASK_UPDATED');
+                return ResponseController::Response200($message);
+            } else {
+                $message = Config::get('response_messages.NO_TASK_FOUND');
+                return ResponseController::Error422($message, []);
+            }
+        } else {
+            return ErrorsController::ErrorValidationMessage($validator);
+        }
     }
 
     /**
