@@ -59,7 +59,8 @@ class AuthController extends Controller
             return response()->json([
                 'status' => Config::get('response_messages.RESPONSE.SUCCESS'),
                 'message' => Config::get('response_messages.REGISTERED_SUCCESS'),
-                'access_token' => $token
+                'access_token' => $token,
+                'user' => $user
             ], 200);
         } else {
             return ErrorsController::ErrorValidationMessage($validator);
