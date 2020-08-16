@@ -104,6 +104,15 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $userId = Auth::guard('api')->user()->user_id;
+        $task = Tasks::where(['task_id' => $id, 'user_id' => $userId])->first();
+        if ($task != null) {
+            $task->delete();
+            $message = Config::get('response_messages.TASK_DELETED');
+            return ResponseController::Response200($message);
+        } else {
+            $message = Config::get('response_messages.NO_TASK_FOUND');
+            return ResponseController::Error422($message);
+        }
     }
 }
