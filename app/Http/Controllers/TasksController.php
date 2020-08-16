@@ -82,8 +82,8 @@ class TasksController extends Controller
             if ($tasks != null) {
                 $tasks->title = empty($request->title) ? $tasks->title : $request->title;
                 $tasks->description = empty($request->description) ? $tasks->description : $request->description;
-                $tasks->isCompleted = empty($request->isCompleted) ? $tasks->isCompleted : $request->isCompleted;
-                $tasks->isArchieved =  empty($request->isArchieved)  ? $tasks->isArchieved : $request->isArchieved;
+                $tasks->isCompleted = $request->isCompleted == $tasks->isCompleted ? $tasks->isCompleted : $request->isCompleted;
+                $tasks->isArchieved =  $request->isArchieved == $tasks->isArchieved ? $tasks->isArchieved : $request->isArchieved;
                 $tasks->save();
                 $message = Config::get('response_messages.TASK_UPDATED');
                 return ResponseController::Response200($message);
