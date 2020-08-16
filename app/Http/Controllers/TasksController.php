@@ -123,4 +123,11 @@ class TasksController extends Controller
         $message = Config::get('response_messages.TASK_LISTED');
         return ResponseController::Response200($message, $tasks);
     }
+
+    public function getCompleted() {
+        $userId = Auth::guard('api')->user()->user_id;
+        $tasks = Tasks::where(['user_id' =>  $userId, 'isCompleted' => 1, 'isArchieved' => 0])->get();
+        $message = Config::get('response_messages.TASK_LISTED');
+        return ResponseController::Response200($message, $tasks);
+    }
 }

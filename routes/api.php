@@ -34,4 +34,5 @@ Route::group([
 ], function () {
     Route::apiResource('tasks', 'TasksController');
     Route::get('/archievedtasks', 'TasksController@getArchieved');
+    Route::get('completedtasks', 'TasksController@getCompleted');
 });
