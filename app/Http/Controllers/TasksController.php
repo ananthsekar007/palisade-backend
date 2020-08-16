@@ -34,7 +34,7 @@ class TasksController extends Controller
 
         $validator = Validator::make($request->all(), [
             "title" => "required|string",
-            "descripition" => "required|string",
+            "description" => "required|string",
         ]);
         if (!$validator->fails()) {
             $tasks = $request->all();
