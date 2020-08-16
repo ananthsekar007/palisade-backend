@@ -42,7 +42,15 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-        //
+        $userId = Auth::guard('api')->user()->user_id;
+        $tasks = Tasks::where('task_id', $id)->where('user_id', $userId)->first();
+        if ($tasks != null) {
+            $message = Config::get('response_messages.TASK_LISTED');
+            return ResponseController::Response200($message, $tasks);
+        } else {
+            $message = Config::get('response_messages.NO_TASK_FOUND');
+            return ResponseController::Error422($message);
+        }
     }
 
     /**
