@@ -28,3 +28,9 @@ Route::group([
 ], function () {
     Route::apiResource('keystore', 'KeystoreController');
 });
+
+Route::group([
+    'middleware' => 'auth:api'
+], function () {
+    Route::apiResource('tasks', 'TasksController');
+});
