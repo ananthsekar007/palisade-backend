@@ -31,3 +31,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 * Run `php artisan migrate` to migrate all the tables.
 * To run the server, Open browser and execute `localhost/foldername/public/`. And use this as base url for requests.
 
+## Tech Stacks Used
+
+* Laravel (For backend and restAPI)
+* Passport (For Authentication)
