@@ -10,7 +10,7 @@ class ResponseController extends Controller
     public static function Response200($message, $data = null)
     {
         $responseJsonData = array();
-        $responseJsonData['status'] = Config::get('constants.response.SUCCESS');
+        $responseJsonData['status'] = 'SUCCESS';
         if ($message) {
             $responseJsonData['message'] = $message;
         }
@@ -23,7 +23,7 @@ class ResponseController extends Controller
     public static function Error422($message, $data = null)
     {
         $responseJsonData = array();
-        $responseJsonData['status'] = Config::get('constants.response.ERROR');
+        $responseJsonData['status'] = 'FAILURE';
         if ($message) {
             $responseJsonData['message'] = $message;
         }
