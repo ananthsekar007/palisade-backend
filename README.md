@@ -19,5 +19,15 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 * Have php <b>(^ v7.4)</b> and install <b>composer</b> in your system.
 * Setup Laravel by referring the  [Laravel Documentation](https://laravel.com/docs/7.x)
+* Install MySQL and Apache servers, preferrably <b>Xampp</b>.
 
+## How to setup backend 
+
+* Clone the repository in your `xampp/htdocs` folder in your system.
+* Open <b>Xampp controller</b> and start <b>MySQL</b> and <b>Apache</b> in it.
+* In the project folder, run the command `composer install` to install all the dependencies.
+* To install authentication, run the command `php artisan passport:install`.
+* Change the file `.env.sample` to `.env` and change the database name and create the database with that name.
+* Run `php artisan migrate` to migrate all the tables.
+* To run the server, Open browser and execute `localhost/foldername/public/`. And use this as base url for requests.
 
